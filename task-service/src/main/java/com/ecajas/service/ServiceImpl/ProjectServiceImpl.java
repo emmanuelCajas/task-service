@@ -34,10 +34,14 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectResponse updateProject(Long id, ProjectRequest projectRequest) {
-        Project project = projectMapper.ProjectRequestToProject(projectRequest);
-        project.setId(id);
-        projectRepository.save(project);
+        Project project = projectRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Project not found"));
+
+        project.setName(projectRequest.getName());
+
+        project = projectRepository.save(project);
         return projectMapper.ProjectToProjectResponse(project);
+
     }
 
     @Override
