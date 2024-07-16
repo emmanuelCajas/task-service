@@ -12,4 +12,5 @@ public interface ProjectService {
     List<ProjectResponse> getAllProjects();
     ProjectResponse getProjectById(Long id);
     void deleteProjectById(Long id);
+    List<ProjectResponse> findProjectsByNameContaining(String name);
 }

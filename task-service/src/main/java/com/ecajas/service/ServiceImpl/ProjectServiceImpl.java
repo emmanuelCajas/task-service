@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -23,13 +24,13 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectResponse createProject(ProjectRequest projectRequest) {
         Project project = projectMapper.ProjectRequestToProject(projectRequest);
         projectRepository.save(project);
-        return projectMapper.ProjectToProjectResponse(project);
+        return projectMapper.projectToProjectResponse(project);
     }
 
     @Override
     public List<ProjectResponse> getAllProjects() {
         List<Project> projects = projectRepository.findAll();
-        return projectMapper.projectListToprojectResponseList(projects);
+        return projectMapper.projectListToProjectResponseList(projects);
     }
 
     @Override
@@ -40,18 +41,27 @@ public class ProjectServiceImpl implements ProjectService {
         project.setName(projectRequest.getName());
 
         project = projectRepository.save(project);
-        return projectMapper.ProjectToProjectResponse(project);
+        return projectMapper.projectToProjectResponse(project);
 
     }
 
     @Override
     public ProjectResponse getProjectById(Long id) {
         Project project = projectRepository.findById(id).orElse(null);
-        return projectMapper.ProjectToProjectResponse(project);
+        return projectMapper.projectToProjectResponse(project);
     }
 
     @Override
     public void deleteProjectById(Long id) {
         projectRepository.deleteById(id);
     }
+
+    @Override
+    public List<ProjectResponse> findProjectsByNameContaining(String name) {
+        List<ProjectResponse> projectResponses = projectRepository
+                .findByNameContaining(name)
+                .stream()
+                .map(projectMapper::projectToProjectResponse)
+                .collect(Collectors.toList());
+        return projectResponses;    }
 }

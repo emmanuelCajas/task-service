@@ -32,6 +32,13 @@ public class ProjectController {
         return new ResponseEntity<>(projectService.createProject(projectRequest),HttpStatus.CREATED);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<ProjectResponse>>
+    searchProjectsByNameContaining(@RequestParam String name) {
+        List<ProjectResponse> projects = projectService.findProjectsByNameContaining(name);
+        return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
+
     @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<ProjectResponse> upDateProject(@PathVariable Long id, @RequestBody ProjectRequest projectRequest){

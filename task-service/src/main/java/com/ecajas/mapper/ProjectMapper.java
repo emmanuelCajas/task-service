@@ -23,20 +23,19 @@ public class ProjectMapper {
         return project;
     }
 
-    public ProjectResponse ProjectToProjectResponse(Project project){
+    public ProjectResponse projectToProjectResponse(Project project){
         ProjectResponse projectResponse = modelMapper.map(project,ProjectResponse.class);
         return projectResponse;
     }
 
-    public List<ProjectResponse> projectListToprojectResponseList(List<Project> projectList){
+    public List<ProjectResponse> projectListToProjectResponseList(List<Project> projectList){
         /*
         return projects.stream()
                 .map(this::projectToProjectResponse)
                 .toList();
         */
-
         List<ProjectResponse> projectResponses = projectList.stream()
-                .map(e->this.ProjectToProjectResponse(e))
+                .map(e->this.projectToProjectResponse(e))
                 .toList() ;
         return projectResponses;
     }
