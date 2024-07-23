@@ -14,6 +14,5 @@ public interface UserService {
     List<UserResponse> getAllUsers();
     UserResponse getUserById(Long id);
     void deleteUserById(Long id);
-    //List<UserResponse> findProjectsByNameContaining(String name);
 
 }
