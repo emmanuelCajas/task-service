@@ -1,10 +1,7 @@
 package com.ecajas.service;
-
-import com.ecajas.dto.TaskRequest;
-import com.ecajas.dto.TaskResponse;
-import com.ecajas.dto.UserRequest;
-import com.ecajas.dto.UserResponse;
-
+import com.ecajas.dto.*;
+import com.ecajas.model.TaskPriority;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface TaskService {
@@ -14,6 +11,11 @@ public interface TaskService {
     List<TaskResponse> getAllTasks();
     TaskResponse getTaskById(Long id);
     void deleteTaskById(Long id);
+    List<TaskResponse> findTasksByPriority(TaskPriority priority);
     List<TaskResponse> findTasksByProjectId(Long projectId);
     List<TaskResponse> findTasksByProjectName(String projectName);
+
+    List<TaskResponse> findTasksByDateRange(LocalDate startDate, LocalDate endDate);
+    void markTaskAsCompleted(Long id);
+    List<TaskReport> getTaskReport();
 }

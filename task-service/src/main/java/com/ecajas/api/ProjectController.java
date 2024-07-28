@@ -20,13 +20,11 @@ public class ProjectController {
 
     private final ProjectServiceImpl projectService;
 
-
     @GetMapping
     public ResponseEntity<List<ProjectResponse>> getAllProjects() {
         return new ResponseEntity<>(projectService.getAllProjects(), HttpStatus.OK);
     }
 
-    @Transactional
     @PostMapping
     public ResponseEntity<ProjectResponse> createProject(@RequestBody ProjectRequest projectRequest) {
         return new ResponseEntity<>(projectService.createProject(projectRequest),HttpStatus.CREATED);
@@ -39,14 +37,12 @@ public class ProjectController {
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
-    @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<ProjectResponse> upDateProject(@PathVariable Long id, @RequestBody ProjectRequest projectRequest){
         ProjectResponse projectResponse = projectService.updateProject(id,projectRequest);
         return new ResponseEntity<>(projectResponse,HttpStatus.OK);
     }
 
-    @Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProjectById(@PathVariable Long id){
         projectService.deleteProjectById(id);
